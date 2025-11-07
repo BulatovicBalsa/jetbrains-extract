@@ -7,7 +7,7 @@ public sealed class ExpressionInterner :
     IExpressionInterner,
     IExpressionVisitor<IExpression>
 {
-    private readonly Dictionary<IExpression, IExpression> _pool = new(); // relies on node-level Equals/GetHashCode
+    private readonly Dictionary<IExpression, IExpression> _pool = new();
 
     public IExpression Intern(IExpression expression)
     {
