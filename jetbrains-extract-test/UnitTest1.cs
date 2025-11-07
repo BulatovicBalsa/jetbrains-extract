@@ -1,4 +1,6 @@
-﻿using jetbrains_extract;
+﻿using jetbrains_extract.ExprOptimizer;
+using jetbrains_extract.ExprOptimizer.Abstractions;
+using jetbrains_extract.ExprOptimizer.Factories;
 
 namespace jetbrains_extract_test;
 
