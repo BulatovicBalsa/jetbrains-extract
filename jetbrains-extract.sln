@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jetbrains-extract", "jetbrains-extract\jetbrains-extract.csproj", "{3E7BBA4A-C128-44BD-B3D5-DF47017139DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jetbrains-extract-test", "jetbrains-extract-test\jetbrains-extract-test.csproj", "{8936DDF4-D133-41BC-A41B-76848E09FD0D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3E7BBA4A-C128-44BD-B3D5-DF47017139DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E7BBA4A-C128-44BD-B3D5-DF47017139DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E7BBA4A-C128-44BD-B3D5-DF47017139DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E7BBA4A-C128-44BD-B3D5-DF47017139DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8936DDF4-D133-41BC-A41B-76848E09FD0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8936DDF4-D133-41BC-A41B-76848E09FD0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8936DDF4-D133-41BC-A41B-76848E09FD0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8936DDF4-D133-41BC-A41B-76848E09FD0D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
