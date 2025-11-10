@@ -1,73 +1,37 @@
-# .github/workflows/ci.yml
-name: CI
+name: CI - Unit Test
 
 on:
   push:
-    branches: ["**"]
+    branches:
+      - main
   pull_request:
-    branches: ["**"]
+    branches:
+      - main
 
 jobs:
-  test:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        dotnet: ["8.0.x"]
+  build:
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Check out repository code
+        uses: actions/checkout@v2
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: ${{ matrix.dotnet }}
+          dotnet-version: '8.x'
 
-      - name: Cache NuGet
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.nuget/packages
-            ~/.local/share/NuGet/Cache
-            ~/.nuget/packages-cache
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.sln', '**/*.csproj', '**/packages.lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-nuget-
+      - name: Restore dependencies
+        run: dotnet restore ./jetbrains-extract.sln
 
-      - name: Restore
-        run: dotnet restore
+      - name: Build the solution
+        run: dotnet build ./jetbrains-extract.sln --configuration Release --no-restore
 
-      - name: Build
-        run: dotnet build -c Release --no-restore
-
-      - name: Test xUnit (with coverage)
-        run: dotnet test ./jetbrains-extract-tests/jetbrains-extract-tests.csproj -c Release --no-build --collect:"XPlat Code Coverage" --logger "trx;LogFileName=test_results.trx"
-
-      - name: Generate coverage HTML
-        if: always()
-        shell: bash
-        run: |
-          dotnet tool update -g dotnet-reportgenerator-globaltool
-          reportgenerator \
-            -reports:**/TestResults/*/coverage.cobertura.xml \
-            -targetdir:coverage-report \
-            -reporttypes:HtmlInline_AzurePipelines
-          echo "Coverage report at coverage-report/index.html"
+      - name: Run unit tests with report
+        run: dotnet test ./jetbrains-extract-test/jetbrains-extract-test.csproj --configuration Release --no-build --logger "trx;LogFileName=TestResults.trx"
 
       - name: Upload test results
-        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: test-results-${{ runner.os }}
-          path: |
-            **/TestResults/**/*.trx
-            **/TestResults/*/coverage.cobertura.xml
-
-      - name: Upload coverage HTML
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-html-${{ runner.os }}
-          path: coverage-report
+          name: TestResults
+          path: ./jetbrains-extract-test/TestResults/TestResults.trx
